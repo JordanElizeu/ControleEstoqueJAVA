@@ -1077,6 +1077,7 @@
           <SubComponents>
             <Component class="javax.swing.JTextField" name="TrashCantxt">
               <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TrashCantxtActionPerformed"/>
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TrashCantxtKeyPressed"/>
               </Events>
             </Component>

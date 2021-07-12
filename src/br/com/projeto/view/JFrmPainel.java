@@ -745,6 +745,11 @@ public class JFrmPainel extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Estoque", Tela3);
 
+        TrashCantxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TrashCantxtActionPerformed(evt);
+            }
+        });
         TrashCantxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TrashCantxtKeyPressed(evt);
@@ -1324,11 +1329,11 @@ public class JFrmPainel extends javax.swing.JFrame {
     }//GEN-LAST:event_btnImagemActionPerformed
 
     private void TrashCantxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TrashCantxtKeyPressed
-        String filtro = "%" + Ppesquisartxt.getText() + "%";
+        String filtro = "%" + TrashCantxt.getText() + "%";
 
         List<StockProducts> lista = estoqueDAO.consultaPorNome(filtro, "lixeira");
 
-        DefaultTableModel dados = (DefaultTableModel) TBVendas.getModel();
+        DefaultTableModel dados = (DefaultTableModel) TrashCanTabela.getModel();
         dados.setNumRows(0);
 
         for (StockProducts estoque : lista) {
@@ -1415,11 +1420,11 @@ public class JFrmPainel extends javax.swing.JFrame {
     }//GEN-LAST:event_TrashCanTabelaMouseClicked
 
     private void TrashCanButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrashCanButtonPesquisarActionPerformed
-        String filtro = "%" + Ppesquisartxt.getText() + "%";
+        String filtro = "%" + TrashCantxt.getText() + "%";
 
         List<StockProducts> lista = estoqueDAO.consultaPorNome(filtro, "lixeira");
 
-        DefaultTableModel dados = (DefaultTableModel) TBVendas.getModel();
+        DefaultTableModel dados = (DefaultTableModel) TrashCanTabela.getModel();
         dados.setNumRows(0);
 
         for (StockProducts estoque : lista) {
@@ -1443,6 +1448,10 @@ public class JFrmPainel extends javax.swing.JFrame {
        
             
     }//GEN-LAST:event_esvaziar_lixeiraActionPerformed
+
+    private void TrashCantxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrashCantxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TrashCantxtActionPerformed
 
     /**
      * @param args the command line arguments
