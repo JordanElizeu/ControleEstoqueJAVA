@@ -14,13 +14,10 @@ import br.com.projeto.model.StockProducts;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -45,7 +42,6 @@ public class JFrmPainel extends javax.swing.JFrame {
     StockProductsDAO estoqueDAO = new StockProductsDAO();
     SaleProductsDAO vendasDAO = new SaleProductsDAO();
 
-    private Connection connection;
     BufferedImage imagem;
 
     public void listar() {
@@ -116,9 +112,7 @@ public class JFrmPainel extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         Vprodutotxt = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        Vvendatxt = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        Vcompratxt = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         Vdatatxt = new javax.swing.JFormattedTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -137,10 +131,11 @@ public class JFrmPainel extends javax.swing.JFrame {
         id_invisible = new javax.swing.JTextField();
         ButtonVendasSalvar_Cancel = new javax.swing.JButton();
         Vquantidadetxt = new javax.swing.JSpinner();
+        Vvendatxt = new javax.swing.JFormattedTextField();
+        Vcompratxt = new javax.swing.JFormattedTextField();
         Tela2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        Pcompratxt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         Pdatatxt = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -159,10 +154,11 @@ public class JFrmPainel extends javax.swing.JFrame {
         id_invisibleProduct = new javax.swing.JTextField();
         ButtonProdutosSalvar_Cancel = new javax.swing.JButton();
         Pprodutotxt = new javax.swing.JTextField();
-        Pvendatxt = new javax.swing.JTextField();
         Pquantidadetxt = new javax.swing.JSpinner();
         Imageview = new javax.swing.JLabel();
         btnImagem = new javax.swing.JButton();
+        Pcompratxt = new javax.swing.JFormattedTextField();
+        Pvendatxt = new javax.swing.JFormattedTextField();
         Tela4 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         TBVendas = new javax.swing.JTable();
@@ -196,20 +192,8 @@ public class JFrmPainel extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Valor de Venda:");
 
-        Vvendatxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VvendatxtActionPerformed(evt);
-            }
-        });
-
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Valor de Compra:");
-
-        Vcompratxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VcompratxtActionPerformed(evt);
-            }
-        });
 
         jLabel9.setText("Data de Registro:");
 
@@ -302,6 +286,26 @@ public class JFrmPainel extends javax.swing.JFrame {
             }
         });
 
+        Vvendatxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
+        Vvendatxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VvendatxtActionPerformed(evt);
+            }
+        });
+        Vvendatxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                VvendatxtKeyPressed(evt);
+            }
+        });
+
+        Vcompratxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
+        Vcompratxt.setText("");
+        Vcompratxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VcompratxtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Tela1Layout = new javax.swing.GroupLayout(Tela1);
         Tela1.setLayout(Tela1Layout);
         Tela1Layout.setHorizontalGroup(
@@ -320,31 +324,30 @@ public class JFrmPainel extends javax.swing.JFrame {
                     .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(Tela1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Tela1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Venderecotxt, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Tela1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Vpagamentotxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Vdatatxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ButtonVendasCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(Tela1Layout.createSequentialGroup()
-                                .addComponent(ButtonVendasSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(ButtonVendasSalvar_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(Tela1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(Vceptxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Vtelefonetxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Vcompratxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Vclientestxt, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(Vprodutotxt))
+                    .addComponent(Vpagamentotxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonVendasCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Tela1Layout.createSequentialGroup()
-                        .addComponent(Vvendatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonVendasSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Vquantidadetxt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(id_invisible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(424, Short.MAX_VALUE))
+                        .addComponent(ButtonVendasSalvar_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Vclientestxt, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(Tela1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(Venderecotxt, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(Tela1Layout.createSequentialGroup()
+                            .addComponent(Vvendatxt, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                            .addGap(23, 23, 23)
+                            .addComponent(jLabel17)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(Vquantidadetxt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(26, 26, 26)
+                            .addComponent(id_invisible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Vprodutotxt, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addGroup(Tela1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(Vceptxt, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Vtelefonetxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                        .addComponent(Vdatatxt, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Vcompratxt, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addContainerGap(640, Short.MAX_VALUE))
         );
         Tela1Layout.setVerticalGroup(
             Tela1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,10 +363,10 @@ public class JFrmPainel extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(Tela1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(Vvendatxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
                     .addComponent(id_invisible, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Vquantidadetxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Vquantidadetxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Vvendatxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(Tela1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -500,6 +503,20 @@ public class JFrmPainel extends javax.swing.JFrame {
             }
         });
 
+        Pcompratxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
+        Pcompratxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PcompratxtActionPerformed(evt);
+            }
+        });
+
+        Pvendatxt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
+        Pvendatxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PvendatxtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Tela2Layout = new javax.swing.GroupLayout(Tela2);
         Tela2.setLayout(Tela2Layout);
         Tela2Layout.setHorizontalGroup(
@@ -526,24 +543,25 @@ public class JFrmPainel extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Tela2Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(Tela2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Pdatavencimentotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Pdatatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Pprodutotxt)
-                            .addGroup(Tela2Layout.createSequentialGroup()
-                                .addGroup(Tela2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(Pvendatxt)
-                                    .addComponent(Pcompratxt, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(Tela2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(id_invisibleProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Tela2Layout.createSequentialGroup()
-                                        .addComponent(jLabel15)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(Pprioridadetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(Pmarcatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Pquantidadetxt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(Tela2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Tela2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Pprodutotxt)
+                                .addGroup(Tela2Layout.createSequentialGroup()
+                                    .addGroup(Tela2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(Pcompratxt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(Pvendatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(Tela2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(id_invisibleProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Tela2Layout.createSequentialGroup()
+                                            .addComponent(jLabel15)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(Pprioridadetxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(Pmarcatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Pquantidadetxt, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Pdatavencimentotxt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Pdatatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(Tela2Layout.createSequentialGroup()
                         .addGap(114, 114, 114)
                         .addGroup(Tela2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -579,9 +597,9 @@ public class JFrmPainel extends javax.swing.JFrame {
                     .addComponent(Pvendatxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(Tela2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Pcompratxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(id_invisibleProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(Pcompratxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(Tela2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Pdatatxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -938,6 +956,8 @@ public class JFrmPainel extends javax.swing.JFrame {
                 imagem = null;
                 apagar.limpaTela(Tela2);
                 Pdescricaotxt.setText("");
+                Pquantidadetxt.setValue(1);
+                Pprioridadetxt.setSelectedIndex(0);
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro inesperado " + e);
@@ -1288,6 +1308,12 @@ public class JFrmPainel extends javax.swing.JFrame {
             sale.cadastrarClientes(vendas);
 
             apagar.limpaTela(Tela1);
+            Vquantidadetxt.setValue(1);
+            Vpagamentotxt.setSelectedIndex(0);
+            Vvendatxt.setText(Vvendatxt.getText().replaceAll("\\D++", ""));
+            Vdatatxt.setText(Vdatatxt.getText().replaceAll("\\D++", ""));
+            Vceptxt.setText(Vceptxt.getText().replaceAll("\\D++", ""));
+            Vcompratxt.setText(Vcompratxt.getText().replaceAll("\\D++", ""));
         }
     }//GEN-LAST:event_ButtonVendasCadastrarActionPerformed
 
@@ -1298,14 +1324,6 @@ public class JFrmPainel extends javax.swing.JFrame {
     private void VdatatxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VdatatxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_VdatatxtActionPerformed
-
-    private void VcompratxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VcompratxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_VcompratxtActionPerformed
-
-    private void VvendatxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VvendatxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_VvendatxtActionPerformed
 
     private void btnImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagemActionPerformed
         JFileChooser fc = new JFileChooser();
@@ -1445,13 +1463,33 @@ public class JFrmPainel extends javax.swing.JFrame {
     private void esvaziar_lixeiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_esvaziar_lixeiraActionPerformed
         estoqueDAO.esvaziarLixeira();
         listar();
-       
-            
+
+
     }//GEN-LAST:event_esvaziar_lixeiraActionPerformed
 
     private void TrashCantxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrashCantxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TrashCantxtActionPerformed
+
+    private void PcompratxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PcompratxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PcompratxtActionPerformed
+
+    private void PvendatxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PvendatxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PvendatxtActionPerformed
+
+    private void VvendatxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VvendatxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VvendatxtActionPerformed
+
+    private void VcompratxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VcompratxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VcompratxtActionPerformed
+
+    private void VvendatxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_VvendatxtKeyPressed
+
+    }//GEN-LAST:event_VvendatxtKeyPressed
 
     /**
      * @param args the command line arguments
@@ -1499,7 +1537,7 @@ public class JFrmPainel extends javax.swing.JFrame {
     private javax.swing.JButton ButtonVendasSalvar;
     private javax.swing.JButton ButtonVendasSalvar_Cancel;
     private javax.swing.JLabel Imageview;
-    private javax.swing.JTextField Pcompratxt;
+    private javax.swing.JFormattedTextField Pcompratxt;
     private javax.swing.JFormattedTextField Pdatatxt;
     private javax.swing.JFormattedTextField Pdatavencimentotxt;
     private javax.swing.JTextArea Pdescricaotxt;
@@ -1508,7 +1546,7 @@ public class JFrmPainel extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> Pprioridadetxt;
     private javax.swing.JTextField Pprodutotxt;
     private javax.swing.JSpinner Pquantidadetxt;
-    private javax.swing.JTextField Pvendatxt;
+    private javax.swing.JFormattedTextField Pvendatxt;
     private javax.swing.JTable TBEstoque;
     private javax.swing.JTable TBVendas;
     private javax.swing.JPanel Tela1;
@@ -1521,7 +1559,7 @@ public class JFrmPainel extends javax.swing.JFrame {
     private javax.swing.JTextField TrashCantxt;
     private javax.swing.JFormattedTextField Vceptxt;
     private javax.swing.JTextField Vclientestxt;
-    private javax.swing.JTextField Vcompratxt;
+    private javax.swing.JFormattedTextField Vcompratxt;
     private javax.swing.JFormattedTextField Vdatatxt;
     private javax.swing.JTextField Venderecotxt;
     private javax.swing.JComboBox<String> Vpagamentotxt;
@@ -1529,7 +1567,7 @@ public class JFrmPainel extends javax.swing.JFrame {
     private javax.swing.JTextField Vprodutotxt;
     private javax.swing.JSpinner Vquantidadetxt;
     private javax.swing.JFormattedTextField Vtelefonetxt;
-    private javax.swing.JTextField Vvendatxt;
+    private javax.swing.JFormattedTextField Vvendatxt;
     private javax.swing.JButton btnImagem;
     private javax.swing.JButton esvaziar_lixeira;
     private javax.swing.JTextField id_invisible;
